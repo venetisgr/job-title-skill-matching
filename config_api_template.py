@@ -1,7 +1,6 @@
 # ============================================================
 # config_api.py — TEMPLATE
 # ============================================================
-# Copy this file as config_api.py and fill in your API keys.
 # NEVER commit config_api.py to version control.
 # ============================================================
 
