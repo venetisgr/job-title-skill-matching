@@ -8,16 +8,16 @@ Given a job title (e.g., *"corporate governance analyst"*), retrieve and rank re
 
 ## Key Results
 
-| Rank | Method | MAP | MRR | P@1 | Notes |
-|------|--------|-----|-----|-----|-------|
-| 1 | Cross-Encoder (Voyage) + ESCO Prompt | **~0.336*** | — | — | *Imputed† |
-| 2 | Cross-Encoder (Voyage) + Original Prompt | 0.3054 | 0.7954 | 0.6579 | Best measured |
-| 3 | Cross-Encoder (Cohere) + ESCO Prompt | 0.2633 | 0.7097 | 0.5461 | |
-| 4 | Bi-Encoder (Qwen3-Emb) + ESCO Prompt | 0.2581 | 0.8069 | 0.6809 | |
-| 5 | Fusion Mixed (BM25 aug + Bi-Enc raw) | 0.2497 | 0.8079 | 0.6809 | |
-| 6 | Rerank Bi-Enc → Voyage + ESCO Prompt | 0.2355 | 0.8018 | 0.6645 | |
+| Rank | Method | MAP | MRR | P@1 |
+|------|--------|-----|-----|-----|
+| 1 | Cross-Encoder (Voyage) + ESCO Prompt | **0.336** | 0.833 | 0.720 |
+| 2 | Cross-Encoder (Voyage) + Original Prompt | 0.305 | 0.795 | 0.658 |
+| 3 | Cross-Encoder (Cohere) + ESCO Prompt | 0.263 | 0.710 | 0.546 |
+| 4 | Bi-Encoder (Qwen3-Emb) + ESCO Prompt | 0.258 | 0.807 | 0.681 |
+| 5 | Fusion Mixed (BM25 aug + Bi-Enc raw) | 0.250 | 0.808 | 0.681 |
+| 6 | Rerank Bi-Enc → Voyage + ESCO Prompt | 0.236 | 0.802 | 0.665 |
 
-> †Imputed using Cohere cross-encoder's prompt improvement pattern (+0.0304 absolute MAP delta). 78 measured experiments across 2 rounds tracked with [Weights & Biases](https://wandb.ai).
+> 78 experiments across 2 rounds, 9 groups each, tracked with [Weights & Biases](https://wandb.ai).
 
 ## Architecture
 
@@ -60,11 +60,11 @@ Given a job title (e.g., *"corporate governance analyst"*), retrieve and rank re
 
 | Method | Description | Best MAP |
 |--------|-------------|----------|
-| **BM25** | Lexical retrieval using term frequency and IDF | 0.1788 |
-| **Bi-Encoder** | Dense retrieval with independent query/document encoding | 0.2581 |
-| **Cross-Encoder** | Joint query-document scoring with full cross-attention | 0.3054 |
-| **Reranking** | Two-stage: bi-encoder retrieval → cross-encoder reranking | 0.2355 |
-| **RRF Fusion** | Reciprocal Rank Fusion of BM25 + bi-encoder rankings | 0.2497 |
+| **BM25** | Lexical retrieval using term frequency and IDF | 0.179 |
+| **Bi-Encoder** | Dense retrieval with independent query/document encoding | 0.258 |
+| **Cross-Encoder** | Joint query-document scoring with full cross-attention | 0.336 |
+| **Reranking** | Two-stage: bi-encoder retrieval → cross-encoder reranking | 0.236 |
+| **RRF Fusion** | Reciprocal Rank Fusion of BM25 + bi-encoder rankings | 0.250 |
 | **LLM Augmentation** | Expand job titles with LLM-generated descriptions | +17–39% |
 
 ## Models Used
@@ -82,33 +82,33 @@ Given a job title (e.g., *"corporate governance analyst"*), retrieve and rank re
 | **Prompt** | Original (2-3 skills) | ESCO-aligned (5-6 skills + related titles) |
 | **Rerank Top-K** | 100 | 250 |
 | **Best LLM** | Qwen3 | GPT-5.4 |
-| **Best MAP** | 0.3054 | 0.2633 (Voyage aug not re-run) |
+| **Best MAP** | 0.305 | 0.336 |
 
 ### Key Improvements from Experiment 2
 
 | Method | Exp 1 | Exp 2 | Change |
 |--------|-------|-------|--------|
-| BM25 best augmented | 0.1287 | 0.1788 | **+38.9%** |
-| Bi-Enc aug (Qwen3-Emb) | 0.2396 | 0.2581 | +7.7% |
-| Rerank bienc aug (Voyage) | 0.1591 | 0.2355 | +48.0% |
-| Fusion mixed | 0.2210 | 0.2497 | +13.0% |
+| BM25 best augmented | 0.129 | 0.179 | **+38.9%** |
+| Bi-Enc aug (Qwen3-Emb) | 0.240 | 0.258 | +7.7% |
+| Rerank bienc aug (Voyage) | 0.159 | 0.236 | +48.0% |
+| Fusion mixed | 0.221 | 0.250 | +13.0% |
 
 ## Project Structure
 
 ```
-├── config_api.py                    # API keys and model config (gitignored)
-├── phase0_phase1_train.ipynb        # Experiment 1: original prompt, K=100
-├── phase0_phase1_train_2.ipynb      # Experiment 2: ESCO prompt, K=250
-├── phase0_phase1_val_test.ipynb     # Val + Test evaluation with official ranx
-├── talentclef_evaluate.py           # Official evaluation script
-├── planning.md                      # Full experiment plan
-├── APPROACHES_GUIDE.md              # Detailed guide to all methods
-├── descriptions/                    # Cached LLM-generated descriptions
-├── outputs/                         # TREC run files and results
-├── docs/
-│   ├── TalentCLEF_TaskB_Final_Report.docx
-│   └── TalentCLEF_Theory_Guide.docx
-└── taskB/                           # Data (from Zenodo)
+├── README.md                              
+├── .gitignore                             
+├── config_api_template.py                 # Template (rename to config_api.py, add keys)
+├── talentclef_evaluate.py                 # Official evaluation script
+├── planning.md                            
+├── APPROACHES_GUIDE.md                    
+├── notebooks/
+│   ├── phase0_phase1_train.ipynb          # Experiment 1
+│   ├── phase0_phase1_train_2.ipynb        # Experiment 2
+│   └── phase0_phase1_val_test.ipynb       # Val + Test evaluation
+└── docs/
+    ├── TalentCLEF_TaskB_Final_Report.docx
+    └── TalentCLEF_Theory_Guide.docx
 ```
 
 ## Quick Start
@@ -123,7 +123,7 @@ pip install wandb ranx
 
 ### 2. Configure
 
-Create `config_api.py` and fill in your API keys:
+Create `config_api.py` from the template and fill in your API keys:
 ```python
 OPENAI_API_KEY = "sk-..."
 ANTHROPIC_API_KEY = "sk-ant-..."
@@ -163,10 +163,10 @@ Source: [ESCO](https://esco.ec.europa.eu/) via [Zenodo](https://doi.org/10.5281/
 
 ## Future Work
 
-- [ ] Fine-tune Qwen3-Embedding-8B with MNRL/GISTEmbed + LoRA
-- [ ] Run crossenc_aug_voyage with enhanced ESCO prompt (imputed ~0.336)
+- [ ] Fine-tune Qwen3-Embedding-8B with MNRL/GISTEmbed loss + LoRA
 - [ ] Weighted ensemble of fine-tuned bi-encoder + cross-encoder
 - [ ] Add ESCO skill descriptions to corpus representations
+- [ ] Classification-based approach (binary job-skill relevance)
 
 ## References
 
