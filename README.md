@@ -97,7 +97,6 @@ Given a job title (e.g., *"corporate governance analyst"*), retrieve and rank re
 
 ```
 ├── README.md                              
-├── .gitignore                             
 ├── config_api_template.py                 # Template (rename to config_api.py, add keys)
 ├── talentclef_evaluate.py                 # Official evaluation script
 ├── planning.md                            
