@@ -102,9 +102,10 @@ Given a job title (e.g., *"corporate governance analyst"*), retrieve and rank re
 ├── planning.md                            
 ├── APPROACHES_GUIDE.md                    
 ├── notebooks/
-│   ├── phase0_phase1_train.ipynb          # Experiment 1
-│   ├── phase0_phase1_train_2.ipynb        # Experiment 2
-│   └── phase0_phase1_val_test.ipynb       # Val + Test evaluation
+│   ├── 01_experiment1_original_prompt.ipynb
+│   ├── 02_experiment2_esco_prompt.ipynb
+│   ├── 03_val_test_original_prompt.ipynb
+│   └── 04_val_test_esco_prompt.ipynb
 └── docs/
     ├── TalentCLEF_TaskB_Final_Report.docx
     └── TalentCLEF_Theory_Guide.docx
