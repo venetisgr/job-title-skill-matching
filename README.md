@@ -135,7 +135,7 @@ TOGETHER_API_KEY = "..."
 
 ### 3. Run
 
-Open `phase0_phase1_train.ipynb` in Google Colab with GPU runtime and run all cells.
+Open `01_experiment1_original_prompt.ipynb` in Google Colab with GPU runtime and run all cells.
 
 ### 4. Evaluate
 
