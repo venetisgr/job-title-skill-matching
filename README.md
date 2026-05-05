@@ -1,6 +1,6 @@
 # TalentCLEF 2025 Task B: Job Title-Based Skill Prediction
 
-A comprehensive information retrieval system for predicting relevant professional skills given a job title, built for the [TalentCLEF 2025](https://talentclef.github.io/talentclef/docs/talentclef-2025/task-summary/) shared task.
+A comprehensive information retrieval system for predicting relevant professional skills given a job title, built for the [TalentCLEF 2025](https://talentclef.github.io/talentclef/) shared task.
 
 ## Task Overview
 
@@ -97,6 +97,7 @@ Given a job title (e.g., *"corporate governance analyst"*), retrieve and rank re
 
 ```
 ├── README.md                              
+├── .gitignore                             
 ├── config_api_template.py                 # Template (rename to config_api.py, add keys)
 ├── talentclef_evaluate.py                 # Official evaluation script
 ├── planning.md                            
