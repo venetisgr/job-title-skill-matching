@@ -1,6 +1,6 @@
 # TalentCLEF 2025 Task B: Job Title-Based Skill Prediction
 
-A comprehensive information retrieval system for predicting relevant professional skills given a job title, built for the [TalentCLEF 2025]([https://talentclef.github.io/talentclef/](https://talentclef.github.io/talentclef/docs/talentclef-2025/task-summary/)) shared task.
+A comprehensive information retrieval system for predicting relevant professional skills given a job title, built for the [TalentCLEF 2025](https://talentclef.github.io/talentclef/docs/talentclef-2025/task-summary/) shared task.
 
 ## Task Overview
 
